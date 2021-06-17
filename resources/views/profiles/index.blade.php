@@ -4,17 +4,30 @@
 <div class="container">
     <div class="row">
         <div class="col-3 p-5">
-            <img src="/img/logo.jpg" alt="" class="rounded-circle" style="width: 100px">
+            <img src="{{ $user->profile->profileImage() }}" alt="" class="w-100 rounded-circle" style="width: 140px">
         </div>
         <div class="col-9 pt-5">
             <div class="d-flex justify-content-between align-items-baseline">
-                <h1>{{ $user->username }}</h1>
-                <a href="/p/create"> Add new post</a>
+                <div class="d-flex align-items-center pb-3">
+                    <div class="h3">{{ $user->username }}</div>
+                    <!-- vue button component, props: user-id -->
+                    @if ( $user->id != Auth::user()->id)
+                        <follow-button follows="{{ $follows }}" user-id="{{ $user->id }}"></follow-button>
+                    @endif
+                </div>
+                @can ('update', $user->profile)
+                    <a href="/p/create"> Add new post</a>
+                @endcan
             </div>
+            <!-- restrição  -->
+            @can ('update', $user->profile)
+                <a href="/profile/{{ $user->id }}/edit">Edit profile</a>
+            @endcan
+
             <div class="d-flex">
-                <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> publicações</div>
-                <div class="pr-5"><strong>110</strong> seguidores</div>
-                <div class="pr-5"><strong>118</strong> seguindo</div>
+                <div class="pr-5"><strong>{{ $postCount }}</strong> publicações</div>
+                <div class="pr-5"><strong>{{ $followersCount }}</strong> seguidores</div>
+                <div class="pr-5"><strong>{{ $followingCount }}</strong> seguindo</div>
 
             </div>
             <div class="pt-4" style="line-height: 1;">
@@ -32,10 +45,15 @@
     <div class="row pt-5">
         @foreach($user->posts as $post)
                 <div class="col-4 pb-4">
-                    <img src="/storage/{{$post->image}}" class="w-100" alt="">
+                    <a href="/p/{{$post->id}}">
+                        <img src="/storage/{{$post->image}}" class="w-100" alt="">
+                    </a>
                 </div>
         @endforeach
         
     </div>
+        
+
+
 </div>
 @endsection

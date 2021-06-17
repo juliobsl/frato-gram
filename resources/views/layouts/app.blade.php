@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Agência Frato') }}</title>
+    <title>{{ config('app.name', 'Frato Gram') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,8 +24,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex" href="{{ url('/') }}">
-                    <div><img src="/img/logo.jpg" alt="Logo Agência Frato" style="height: 30px;border-right:1px solid #333" class="pr-3"></div>
-                    <div class="pl-3">Agência Frato</div>
+                    <div><img src="/img/logo.jpg" alt="Logo FratoGram" style="height: 30px;border-right:1px solid #333" class="pr-3"></div>
+                    <div class="pl-3">FratoGram</div>
                     
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -60,6 +60,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#"
+                                       onclick="event.preventDefault();
+                                                     window.location = '/profile/{{ Auth::user()->id }}';">
+                                        {{ __('Profile') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

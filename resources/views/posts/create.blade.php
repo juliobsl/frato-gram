@@ -16,7 +16,6 @@
                         name="caption"
                         type="text"
                         class="form-control @error('caption') is-invalid @enderror"
-                        caption="caption"
                         value="{{ old('caption') }}" autocomplete="caption" autofocus>
 
                     @error('caption')
